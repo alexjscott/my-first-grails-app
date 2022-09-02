@@ -1,13 +1,15 @@
 package myapp
 
+@SuppressWarnings('GrailsDomainReservedSqlKeywordName')
 class Vehicle {
-    Sring name
+
+    int year
+    String name
     String make
-    String Model
+    String model
 
     static constraints = {
-        name maxSIze: 255
-        make inList: ['Ford', 'Chevrolet', 'Nissan']
-        model nulllable: true
+        year min: 1900
+        name maxSize: 255
     }
 }
