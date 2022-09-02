@@ -5,7 +5,17 @@ import grails.rest.*
 import grails.converters.*
 
 class HomeController {
-	static responseFormats = ['json', 'xml']
-	
-    def index() { }
+
+    def index() {
+        respond([name: session.name ?: 'User', vehicleTotal: Vehicle.count()])
+    }
+
+    def updateName(String name) {
+        session.name = name
+
+        flash.message = "Name has been updated"
+
+        redirect action: 'index'
+    }
+
 }
