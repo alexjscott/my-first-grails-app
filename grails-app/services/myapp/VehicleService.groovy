@@ -13,6 +13,7 @@ interface VehicleService {
 
     Vehicle delete(Serializable id)
 
-    Vehicle save(Vehicle vehicle)
+    //Vehicle save(Vehicle vehicle)
 
+    Vehicle save(Integer year, String name, Model model, Make make)
 }

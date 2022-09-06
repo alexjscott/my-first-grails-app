@@ -1,15 +1,18 @@
 package myapp
 
+import grails.compiler.GrailsCompileStatic
+
 @SuppressWarnings('GrailsDomainReservedSqlKeywordName')
 class Vehicle {
 
-    int year
+    Integer year
+
     String name
-    String make
-    String model
+    Model model
+    Make make
 
     static constraints = {
-        year min: 1900
-        name maxSize: 255
+//        year min: 1900
+//        name maxSize: 255
     }
 }

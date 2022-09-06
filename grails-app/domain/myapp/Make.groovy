@@ -1,5 +1,8 @@
 package myapp
 
+import grails.compiler.GrailsCompileStatic
+
+@GrailsCompileStatic
 class Make {
 
     String name
