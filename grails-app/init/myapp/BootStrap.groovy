@@ -11,15 +11,15 @@ class BootStrap {
     def init = { servletContext ->
 
         Make nissan = makeService.save('Nissan')
-        Make ford = makeService.save('Ford')
+        Make ford = makeService.save( 'Ford')
 
-        Model titan = modelService.save('Titan', nissan as Make)
-        Model leaf = modelService.save('Leaf', nissan as Make)
-        Model windstar = modelService.save('Windstar', ford as Make)
+        Model titan = modelService.save('Titan', nissan)
+        Model leaf = modelService.save('Leaf', nissan)
+        Model windstar = modelService.save('Windstar', ford)
 
-        vehicleService.save(2012, 'Pickup', titan as Model, nissan as Make)
-        vehicleService.save(2014, 'Economy', leaf as Model, nissan as Make)
-        vehicleService.save(1990, 'Minivan', windstar as Model, ford as Make)
+        vehicleService.save('Pickup', nissan, titan, 2012).save()
+        vehicleService.save('Economy', nissan, leaf, 2014).save()
+        vehicleService.save('Minivan', ford, windstar, 1990).save()
     }
     def destroy = {
     }

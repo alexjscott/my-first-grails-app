@@ -1,8 +1,0 @@
-import myapp.Vehicle
-
-model {
-	Iterable<Vehicle> vehicleList
-}
-
-json tmpl.vehicle(vehicleList ?: [])
-

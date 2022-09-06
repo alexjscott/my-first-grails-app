@@ -1,7 +1,0 @@
-import myapp.Vehicle
-
-model {
-	Vehicle vehicle
-}
-
-json tmpl.vehicle(vehicle)

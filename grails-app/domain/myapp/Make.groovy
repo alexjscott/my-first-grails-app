@@ -2,7 +2,6 @@ package myapp
 
 import grails.compiler.GrailsCompileStatic
 
-@GrailsCompileStatic
 class Make {
 
     String name
@@ -10,7 +9,7 @@ class Make {
     static constraints = {
     }
 
-    String toString(){
+    String toString() {
         name
     }
 }

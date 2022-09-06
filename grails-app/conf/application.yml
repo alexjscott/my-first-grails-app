@@ -2,7 +2,10 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: myapp
+        defaultPackage: myApp
+    spring:
+        transactionManagement:
+            proxies: false
     gorm:
         reactor:
             # Whether to translate GORM events into Reactor events
@@ -14,26 +17,17 @@ info:
         version: '@info.app.version@'
         grailsVersion: '@info.app.grailsVersion@'
 spring:
-    jmx:
-        unique-names: true
     main:
         banner-mode: "off"
-        lazy-initialization: true
     groovy:
         template:
             check-template-location: false
-    devtools:
-        restart:
-            additional-exclude:
-                - '*.gsp'
-                - '**/*.gsp'
-                - '*.gson'
-                - '**/*.gson'
-                - 'logback.groovy'
-                - '*.properties'
-management:
-    endpoints:
-        enabled-by-default: false
+
+# Spring Actuator Endpoints are Disabled by Default
+endpoints:
+    enabled: false
+    jmx:
+        enabled: true
 
 ---
 grails:
@@ -53,22 +47,22 @@ grails:
             csv: text/csv
             form: application/x-www-form-urlencoded
             html:
-              - text/html
-              - application/xhtml+xml
+                - text/html
+                - application/xhtml+xml
             js: text/javascript
             json:
-              - application/json
-              - text/json
+                - application/json
+                - text/json
             multipartForm: multipart/form-data
             pdf: application/pdf
             rss: application/rss+xml
             text: text/plain
             hal:
-              - application/hal+json
-              - application/hal+xml
+                - application/hal+json
+                - application/hal+xml
             xml:
-              - text/xml
-              - application/xml
+                - text/xml
+                - application/xml
     urlmapping:
         cache:
             maxsize: 1000
@@ -84,13 +78,12 @@ grails:
             htmlcodec: xml
             codecs:
                 expression: html
-                scriptlet: html
+                scriptlets: html
                 taglib: none
                 staticparts: none
-management:
-    endpoints:
-        jmx:
-            unique-names: true
+endpoints:
+    jmx:
+        unique-names: true
 
 ---
 hibernate:
@@ -98,20 +91,29 @@ hibernate:
         queries: false
         use_second_level_cache: false
         use_query_cache: false
+
+dataSource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: phU4ra7pu!
+    url: jdbc:postgresql://localhost:5432
+    platform: postgres
+    initialization-mode: always
+    continue-on-error: true
 
 environments:
     development:
         dataSource:
             dbCreate: create-drop
-            url: jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:h2:mem:devDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     test:
         dataSource:
             dbCreate: update
-            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         dataSource:
             dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            url: jdbc:h2:./prodDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
             properties:
                 jmxEnabled: true
                 initialSize: 5
@@ -131,138 +133,6 @@ environments:
                 jdbcInterceptors: ConnectionState
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 
----
-grails:
-    profile: rest-api
-    codegen:
-        defaultPackage: myapp
-    gorm:
-        reactor:
-            # Whether to translate GORM events into Reactor events
-            # Disabled by default for performance reasons
-            events: false
-info:
-    app:
-        name: '@info.app.name@'
-        version: '@info.app.version@'
-        grailsVersion: '@info.app.grailsVersion@'
-spring:
-    datasource:
-        driver-class-name: org.postgresql.Driver
-        username: postgres
-        password: phU4ra7pu!
-        url: jdbc:postgresql://localhost:5432
-        platform: postgres
-        initialization-mode: always
-        continue-on-error: true
-    jpa:
-        show-sql: false
-        generate-ddl: true
-        hibernate:
-            ddl-auto: create
-        database: postgresql
-        database-platform: org.hibernate.dialect
-    jmx:
-        unique-names: true
-    main:
-        banner-mode: "off"
-    groovy:
-        template:
-            check-template-location: false
-    devtools:
-        restart:
-            additional-exclude:
-                - '*.gsp'
-                - '**/*.gsp'
-                - '*.gson'
-                - '**/*.gson'
-                - 'logback.groovy'
-                - '*.properties'
-management:
-    endpoints:
-        enabled-by-default: false
-
----
-grails:
-    mime:
-        disable:
-            accept:
-                header:
-                    userAgents:
-                        - Gecko
-                        - WebKit
-                        - Presto
-                        - Trident
-        types:
-            json:
-              - application/json
-              - text/json   
-            hal:
-              - application/hal+json
-              - application/hal+xml  
-            xml:
-              - text/xml
-              - application/xml                                 
-            atom: application/atom+xml
-            css: text/css
-            csv: text/csv
-            js: text/javascript
-            rss: application/rss+xml
-            text: text/plain
-            all: '*/*'            
-    urlmapping:
-        cache:
-            maxsize: 1000
-    controllers:
-        defaultScope: singleton
-    converters:
-        encoding: UTF-8
-
----
-
-hibernate:
-    cache:
-        queries: false
-        use_second_level_cache: false
-        use_query_cache: false
-dataSource:
-    pooled: true
-    jmxExport: true
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: phU4ra7pu!
-
-environments:
-    development:
-        dataSource:
-            dbCreate: create
-            url: jdbc:postgresql://localhost:5432/myapp
-    test:
-        dataSource:
-            dbCreate: create
-            url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-    production:
-        dataSource:
-            dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
-            properties:
-                jmxEnabled: true
-                initialSize: 5
-                maxActive: 50
-                minIdle: 5
-                maxIdle: 25
-                maxWait: 10000
-                maxAge: 600000
-                timeBetweenEvictionRunsMillis: 5000
-                minEvictableIdleTimeMillis: 60000
-                validationQuery: SELECT 1
-                validationQueryTimeout: 3
-                validationInterval: 15000
-                testOnBorrow: true
-                testWhileIdle: true
-                testOnReturn: false
-                jdbcInterceptors: ConnectionState
-                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
-
-server:
-    port: 8090
+#Uncomment the lines below to change the port number from default 8080
+#server:
+#    port: 8090

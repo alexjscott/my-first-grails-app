@@ -12,7 +12,7 @@ class Vehicle {
     Make make
 
     static constraints = {
-//        year min: 1900
-//        name maxSize: 255
+        year min: 1900
+        name maxSize: 255
     }
 }
