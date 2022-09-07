@@ -2,7 +2,7 @@
 grails:
     profile: web
     codegen:
-        defaultPackage: myApp
+        defaultPackage: org.grails.guides
     spring:
         transactionManagement:
             proxies: false
@@ -94,8 +94,8 @@ hibernate:
 
 dataSource:
     driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: phU4ra7pu!
+    username: $(USERNAME_MY_FIRST_DB)
+    password: $(PASS_MY_FIRST_DB)
     url: jdbc:postgresql://localhost:5432
     platform: postgres
     initialization-mode: always
