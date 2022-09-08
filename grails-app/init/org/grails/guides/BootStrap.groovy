@@ -13,13 +13,13 @@ class BootStrap {
         Make nissan = makeService.save('Nissan')
         Make ford = makeService.save( 'Ford')
 
-        Model titan = modelService.save('Titan', nissan)
-        Model leaf = modelService.save('Leaf', nissan)
-        Model windstar = modelService.save('Windstar', ford)
+        Model titan = modelService.save('Titan', nissan as Make)
+        Model leaf = modelService.save('Leaf', nissan as Make)
+        Model windstar = modelService.save('Windstar', ford as Make)
 
-        vehicleService.save('Pickup', nissan, titan, 2012).save()
-        vehicleService.save('Economy', nissan, leaf, 2014).save()
-        vehicleService.save('Minivan', ford, windstar, 1990).save()
+        vehicleService.save('Pickup', nissan as Make, titan as Model, 2012)
+        vehicleService.save('Economy', nissan as Make, leaf as Model, 2014)
+        vehicleService.save('Minivan', ford as Make, windstar as Model, 1990)
     }
     def destroy = {
     }

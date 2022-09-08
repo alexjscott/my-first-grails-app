@@ -1,5 +1,6 @@
 package org.grails.guides
 
+import org.grails.guides.*
 import grails.gorm.services.Service
 
 @Service(Model)

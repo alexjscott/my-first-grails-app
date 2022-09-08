@@ -7,7 +7,7 @@
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
 
-    <asset:javascript src="jquery-3.1.1.js" />
+    <asset:javascript src="jquery-3.3.1.min.js" />
 
     <script type="text/javascript">
       $( document ).ready(function() {
